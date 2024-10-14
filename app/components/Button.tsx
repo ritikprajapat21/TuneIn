@@ -10,7 +10,12 @@ const Button: React.FC<ButtonProps> = ({ children, ...rest }) => {
       {...rest}
       style={({ pressed }) => [
         { opacity: pressed ? 0.5 : 1 },
-        { backgroundColor: "#30a147", padding: 10, borderRadius: 5 },
+        {
+          backgroundColor: "#30a147",
+          padding: 10,
+          borderRadius: 5,
+          width: "100%",
+        },
       ]}
     >
       {children}

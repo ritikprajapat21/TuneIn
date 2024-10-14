@@ -48,7 +48,7 @@ export default function TabLayout() {
             <TabBarIcon
               name={focused ? "add-sharp" : "add-outline"}
               color={color}
-              size={24}
+              size={32}
             />
           ),
         }}

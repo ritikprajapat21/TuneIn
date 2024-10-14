@@ -5,41 +5,69 @@ import Button from "@/components/Button";
 import { View } from "react-native";
 import { router } from "expo-router";
 
-const Index = () => {
+const HomeIndex = () => {
   return (
-    <ThemedView style={{ flexDirection: "column", gap: 24 }}>
-      <View style={{ flexDirection: "row", gap: 4, alignItems: "flex-end" }}>
-        <ThemedText
-          type="defaultSemiBold"
+    <ThemedView style={{ flexDirection: "column", gap: 24, flex: 1 }}>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "flex-end",
+          width: "100%",
+        }}
+      >
+        <View
           style={{
-            fontSize: 30,
-            paddingTop: 4,
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          Welcome to
-        </ThemedText>
-        <ThemedText type="title" style={{ fontSize: 30 }}>
-          TuneIn
-        </ThemedText>
+          <ThemedText
+            type="defaultSemiBold"
+            style={{
+              fontSize: 30,
+              paddingTop: 4,
+            }}
+          >
+            Welcome to{" "}
+          </ThemedText>
+          <ThemedText type="title" style={{ fontSize: 30, width: 100 }}>
+            TuneIn
+          </ThemedText>
+        </View>
       </View>
-      <View style={{ flexDirection: "row", gap: 12, alignItems: "center" }}>
+      <View
+        style={{
+          flexDirection: "column",
+          gap: 12,
+          alignItems: "center",
+          paddingHorizontal: 36,
+          width: "100%",
+          maxWidth: 400,
+        }}
+      >
         <Button
           onPress={() => {
             router.push("/sign-in");
           }}
         >
-          <ThemedText>Sign In</ThemedText>
+          <ThemedText style={{ color: "white", fontWeight: 700 }}>
+            Sign In
+          </ThemedText>
         </Button>
         <Button
           onPress={() => {
             router.push("/sign-up");
           }}
         >
-          <ThemedText>Sign Up</ThemedText>
+          <ThemedText style={{ color: "white", fontWeight: 700 }}>
+            Sign Up
+          </ThemedText>
         </Button>
       </View>
     </ThemedView>
   );
 };
 
-export default Index;
+export default HomeIndex;
