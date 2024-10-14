@@ -5,29 +5,19 @@ import { ThemedView } from "@/components/ThemedView";
 import { View } from "react-native";
 import ThemedInput from "@/components/ThemedInput";
 import Button from "@/components/Button";
+import Card from "@/components/Card";
 
 const SignUp = () => {
   const [name, setName] = React.useState("");
 
   return (
     <ThemedView
-      style={{ flexDirection: "column", gap: 24, alignItems: "center" }}
+      style={{ flexDirection: "column", gap: 8, alignItems: "center", flex: 1 }}
     >
       <ThemedText style={{ fontSize: 24, fontWeight: "bold" }}>
         Welcome {name}
       </ThemedText>
-      <View
-        style={{
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "87%",
-          paddingVertical: 20,
-          paddingHorizontal: 10,
-          gap: 4,
-          borderRadius: 8,
-        }}
-      >
+      <Card style={{ paddingVertical: 12 }}>
         <ThemedInput
           placeholder="Enter your name"
           autoCapitalize="words"
@@ -55,7 +45,7 @@ const SignUp = () => {
         >
           <ThemedText>Sign Up</ThemedText>
         </Button>
-      </View>
+      </Card>
       <View style={{ flexDirection: "row", gap: 4, alignItems: "center" }}>
         <ThemedText>Already have an account?</ThemedText>
         <ThemedText type="link">

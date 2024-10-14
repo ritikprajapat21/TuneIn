@@ -12,12 +12,14 @@ const ThemedInput: React.FC<ThemedInputProps> = ({
   ...rest
 }) => {
   const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
-  const backgroundColor = useThemeColor({}, "inputBackgroundColor")
-  const placeholderTextColor = useThemeColor({}, "placeholderColor")
+  const backgroundColor = useThemeColor({}, "inputBackgroundColor");
+  const placeholderTextColor = useThemeColor({}, "placeholderColor");
+  const borderColor = useThemeColor({}, "borderColor");
+
   return (
     <TextInput
       placeholderTextColor={placeholderTextColor}
-      style={[{ color, backgroundColor }, style, styles.text, ]}
+      style={[{ color, backgroundColor, borderColor }, style, styles.text]}
       {...rest}
     />
   );
@@ -32,6 +34,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     margin: 10,
     width: "100%",
+    borderWidth: 1,
   },
 });
 
