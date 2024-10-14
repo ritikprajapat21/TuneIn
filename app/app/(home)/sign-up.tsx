@@ -19,7 +19,6 @@ const SignUp = () => {
       <View
         style={{
           flexDirection: "column",
-          backgroundColor: "#151b23",
           justifyContent: "center",
           alignItems: "center",
           width: "87%",

@@ -12,10 +12,12 @@ const ThemedInput: React.FC<ThemedInputProps> = ({
   ...rest
 }) => {
   const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
+  const backgroundColor = useThemeColor({}, "inputBackgroundColor")
+  const placeholderTextColor = useThemeColor({}, "placeholderColor")
   return (
     <TextInput
-      placeholderTextColor="#f0f6fcbd"
-      style={[{ color }, style, styles.text]}
+      placeholderTextColor={placeholderTextColor}
+      style={[{ color, backgroundColor }, style, styles.text, ]}
       {...rest}
     />
   );
@@ -25,8 +27,8 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     lineHeight: 24,
-    backgroundColor: "#0d1117",
     padding: 8,
+    paddingHorizontal: 12,
     borderRadius: 10,
     margin: 10,
     width: "100%",

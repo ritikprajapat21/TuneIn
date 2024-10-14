@@ -4,14 +4,14 @@ import ThemedInput from "@/components/ThemedInput";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { Link, router } from "expo-router";
-import { TextInput, View } from "react-native";
+import { View } from "react-native";
 
 const SignIn = () => {
   return (
     <>
-      <ThemedView style={{ flexDirection: "column", gap: 24 }}>
-        <View style={{ flexDirection: "row", gap: 2 }}>
-          <ThemedText style={{ fontSize: 24, fontWeight: "bold" }}>
+      <ThemedView style={{ flexDirection: "column", gap: 16 }}>
+        <View style={{ flexDirection: "row", gap: 8, alignItems: 'center', justifyContent:'center' }}>
+          <ThemedText numberOfLines={1} style={{ fontSize: 24, fontWeight: "bold" }}>
             Welcome back
           </ThemedText>
           <HelloWave />
@@ -19,7 +19,6 @@ const SignIn = () => {
         <View
           style={{
             flexDirection: "column",
-            backgroundColor: "#151b23",
             justifyContent: "center",
             alignItems: "center",
             width: "87%",
