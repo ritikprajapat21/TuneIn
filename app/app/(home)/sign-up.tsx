@@ -1,8 +1,8 @@
 import React from "react";
-import { Link, router } from "expo-router";
+import { Link } from "expo-router";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import ThemedInput from "@/components/ThemedInput";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
@@ -14,8 +14,10 @@ const SignUp = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [rePassword, setRePassword] = React.useState("");
+  const [clicked, setClicked] = React.useState(false);
 
   const onPress = () => {
+    setClicked(true);
     if (name === "") {
       alert("Please enter your name");
       return;
@@ -36,7 +38,7 @@ const SignUp = () => {
       alert("Passwords do not match");
       return;
     }
-    register!(name, email, password, rePassword);
+    register!(name, email, password, rePassword, () => setClicked(false));
   };
 
   return (
@@ -70,8 +72,13 @@ const SignUp = () => {
           autoCapitalize="none"
           onChangeText={(e) => setRePassword(e)}
         />
-        <Button onPress={onPress}>
+        <Button
+          onPress={onPress}
+          clicked={clicked}
+          style={{ flexDirection: "row", justifyContent: "center", gap: 4 }}
+        >
           <ThemedText>Sign Up</ThemedText>
+          {clicked && <ActivityIndicator />}
         </Button>
       </Card>
       <View style={{ flexDirection: "row", gap: 4, alignItems: "center" }}>

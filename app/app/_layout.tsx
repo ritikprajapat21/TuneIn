@@ -11,8 +11,6 @@ import "react-native-reanimated";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import AuthProvider, { useAuth } from "@/context/authcontext";
-import Button from "@/components/Button";
-import { ThemedText } from "@/components/ThemedText";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -47,22 +45,12 @@ export default function RootLayout() {
 }
 
 const Layout = () => {
-  const { authState, logout } = useAuth();
+  const { authState } = useAuth();
 
   return (
-    <Stack>
+    <Stack screenOptions={{ headerShown: false }}>
       {authState?.authenticated ? (
-        <Stack.Screen
-          name="(tabs)"
-          options={{
-            headerRight: () => (
-              <Button onPress={logout}>
-                <ThemedText>Logout</ThemedText>
-              </Button>
-            ),
-            headerLeft: () => null,
-          }}
-        />
+        <Stack.Screen name="(tabs)" />
       ) : (
         <Stack.Screen name="(home)" options={{ headerShown: false }} />
       )}

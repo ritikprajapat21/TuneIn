@@ -7,11 +7,12 @@ import { ThemedView } from "@/components/ThemedView";
 import { useAuth } from "@/context/authcontext";
 import { Link } from "expo-router";
 import { useState } from "react";
-import { View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [clicked, setClicked] = useState(false);
   const { login } = useAuth();
 
   return (
@@ -48,10 +49,14 @@ const SignIn = () => {
           />
           <Button
             onPress={() => {
-              login!(email, password);
+              setClicked(true);
+              login!(email, password, () => setClicked(false));
             }}
+            style={{ flexDirection: "row", justifyContent: "center", gap: 4 }}
+            clicked={clicked}
           >
             <ThemedText>Log in</ThemedText>
+            {clicked && <ActivityIndicator />}
           </Button>
         </Card>
 

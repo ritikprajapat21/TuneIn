@@ -1,4 +1,5 @@
 import axios from "axios";
+import { router } from "expo-router";
 import SecureStore from "expo-secure-store";
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -9,12 +10,13 @@ interface AuthProps {
     email: string,
     password: string,
     rePassword: string,
+    fn: () => void,
   ) => Promise<any>;
-  login?: (email: string, password: string) => Promise<any>;
+  login?: (email: string, password: string, fn: () => void) => Promise<any>;
   logout?: () => Promise<any>;
 }
 
-export const API_URL = "http://localhost:3000";
+export const API_URL = "http://192.168.43.136:3000";
 const AuthContext = createContext({} as AuthProps);
 const KEY = "authToken";
 
@@ -44,12 +46,16 @@ export default function AuthProvider({ children }: any) {
     loadToken();
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const login = async (email: string, password: string, fn: () => void) => {
     try {
-      const result = await axios.post(`${API_URL}/login`, {
+      const result = await axios.post(`${API_URL}/auth/login`, {
         email,
         password,
       });
+
+      if (result.status !== 200) {
+        throw Error(result.data.msg);
+      }
 
       setAuthState({
         token: result.data.token,
@@ -59,11 +65,15 @@ export default function AuthProvider({ children }: any) {
       axios.defaults.headers.common["Authorization"] =
         `Bearer ${result.data.token}`;
 
+      router.replace("/(tabs)");
+
       await SecureStore.setItemAsync(KEY, result.data.token);
 
       return result;
     } catch (e) {
-      return { error: true, msg: (e as any).response.data.msg };
+      return { error: true, msg: (e as any).message };
+    } finally {
+      fn();
     }
   };
 
@@ -72,25 +82,38 @@ export default function AuthProvider({ children }: any) {
     email: string,
     password: string,
     rePassword: string,
+    fn: () => void,
   ) => {
     try {
-      const result = await axios.post(`${API_URL}/register`, {
+      const result = await axios.post(`${API_URL}/auth/register`, {
         name,
         email,
         password,
         rePassword,
       });
+      console.log(result);
+      if (result.status !== 200) {
+        throw Error(result.data.msg);
+      }
+
+      alert(result.data.msg);
+
+      router.push("/sign-in");
 
       return result;
     } catch (e) {
-      return { error: true, msg: (e as any).response.data.msg };
+      console.error((e as any).message);
+      return { error: true, msg: (e as any).message };
+    } finally {
+      fn();
     }
   };
 
   const logout = async () => {
     setAuthState({ token: null, authenticated: false });
     axios.defaults.headers.common["Authorization"] = null;
-    await SecureStore.deleteItemAsync(KEY);
+    await SecureStore?.deleteItemAsync(KEY);
+    router.replace("/(home)");
   };
 
   return (
