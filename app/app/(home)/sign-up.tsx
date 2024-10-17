@@ -6,9 +6,38 @@ import { View } from "react-native";
 import ThemedInput from "@/components/ThemedInput";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
+import { useAuth } from "@/context/authcontext";
 
 const SignUp = () => {
+  const { register } = useAuth();
   const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [rePassword, setRePassword] = React.useState("");
+
+  const onPress = () => {
+    if (name === "") {
+      alert("Please enter your name");
+      return;
+    }
+    if (email === "") {
+      alert("Please enter your email");
+      return;
+    }
+    if (password === "") {
+      alert("Please enter your password");
+      return;
+    }
+    if (rePassword === "") {
+      alert("Please re-enter your password");
+      return;
+    }
+    if (password !== rePassword) {
+      alert("Passwords do not match");
+      return;
+    }
+    register!(name, email, password, rePassword);
+  };
 
   return (
     <ThemedView
@@ -27,22 +56,21 @@ const SignUp = () => {
           placeholder="Enter your email"
           keyboardType="email-address"
           autoCapitalize="none"
+          onChangeText={(e) => setEmail(e)}
         />
         <ThemedInput
           placeholder="Enter your password"
           secureTextEntry
           autoCapitalize="none"
+          onChangeText={(e) => setPassword(e)}
         />
         <ThemedInput
           placeholder="Re-enter your password"
           secureTextEntry
           autoCapitalize="none"
+          onChangeText={(e) => setRePassword(e)}
         />
-        <Button
-          onPress={() => {
-            router.push("/sign-in");
-          }}
-        >
+        <Button onPress={onPress}>
           <ThemedText>Sign Up</ThemedText>
         </Button>
       </Card>

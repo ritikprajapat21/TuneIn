@@ -14,6 +14,7 @@ const Button: React.FC<ButtonProps> = ({ children, ...rest }) => {
           backgroundColor: "#30a147",
           padding: 10,
           borderRadius: 5,
+          margin: 8,
           width: "100%",
         },
       ]}

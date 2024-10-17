@@ -4,10 +4,16 @@ import { HelloWave } from "@/components/HelloWave";
 import ThemedInput from "@/components/ThemedInput";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { Link, router } from "expo-router";
+import { useAuth } from "@/context/authcontext";
+import { Link } from "expo-router";
+import { useState } from "react";
 import { View } from "react-native";
 
 const SignIn = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { login } = useAuth();
+
   return (
     <>
       <ThemedView style={{ flexDirection: "column", gap: 12, flex: 1 }}>
@@ -32,15 +38,17 @@ const SignIn = () => {
             placeholder="Enter your email"
             keyboardType="email-address"
             autoCapitalize="none"
+            onChangeText={(e) => setEmail(e)}
           />
           <ThemedInput
             placeholder="Enter your password"
             secureTextEntry
             autoCapitalize="none"
+            onChangeText={(e) => setPassword(e)}
           />
           <Button
             onPress={() => {
-              router.push("/(tabs)");
+              login!(email, password);
             }}
           >
             <ThemedText>Log in</ThemedText>
